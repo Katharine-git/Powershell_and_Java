@@ -2,10 +2,10 @@
 
 <b> Scripts are also included to ; </b>
 
-Silently install and uninstall Java with no window pop-ups. 
+- Silently install and uninstall Java with no window pop-ups. 
 
-Set environment variables(JAVA_HOME). 
+- Set environment variables(JAVA_HOME). 
 
-Transcript the process to a log file for ease of troubleshooting. 
+- Transcript the process to a log file for ease of troubleshooting. 
 
 
