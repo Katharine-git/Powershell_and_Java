@@ -24,7 +24,6 @@ function UninstallJava ($name) {
 
 #---------------------Installing Java jdk 8------------------------------------
 
-
 function InstallJava ($javaVersion,$jdkVersion,$url,$fileName,$jdkPath,$jrePath) {
 
   Write-Host "Installing $javaVersion..."
