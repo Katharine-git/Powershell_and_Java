@@ -9,8 +9,6 @@ function GetUninstallString ($productName) {
        | Select-Object UninstallString).UninstallString
 }
 function UninstallJava ($name) {
-  Write-Host $name
-  $java8 = (GetUninstallString $name)
   $uninstallCommand = (GetUninstallString $name)
   if ($uninstallCommand) {
     Write-Verbose "Uninstalling $name"
