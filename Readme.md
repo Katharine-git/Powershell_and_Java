@@ -1,11 +1,11 @@
-<h2><b>This repository includes scripts that uninstalls and installs Java 8 (jdk and jre) <h2></b>
+<h3> This repository includes scripts that uninstalls and installs Java 8 (jdk and jre) </h3>
 
-<b>Scripts are also included to ;</b>
+<b> Scripts are also included to ; </b>
 
-<i> Silently install and uninstall Java with no window pop-ups. </i>
+Silently install and uninstall Java with no window pop-ups. 
 
-<i> Set environment variables(JAVA_HOME). </i>
+Set environment variables(JAVA_HOME). 
 
-<i> Transcript the process to a log file for ease of troubleshooting. </i>
+Transcript the process to a log file for ease of troubleshooting. 
 
 
