@@ -1,4 +1,4 @@
-#---------------------Uninstall Java----------------------------------------------
+#Uninstall
 function GetUninstallString ($productName) {
 
   #PowerShell script to uninstall Java SE (JRE) version on computer
@@ -9,24 +9,23 @@ function GetUninstallString ($productName) {
        | Select-Object UninstallString).UninstallString
 }
 function UninstallJava ($name) {
-  $java8 = (GetUninstallString 'Java SE Development Kit 8 Update 221')
+  Write-Host $name
+  $java8 = (GetUninstallString $name)
   $uninstallCommand = (GetUninstallString $name)
   if ($uninstallCommand) {
-    Write-Host "Uninstalling $name"
+    Write-Verbose "Uninstalling $name"
 
     $uninstallCommand = $uninstallCommand.Replace('MsiExec.exe /I{','/x{').Replace('MsiExec.exe /X{','/x{')
     cmd /c start /wait msiexec.exe $uninstallCommand /quiet
 
-    Write-Host "Uninstalled $name"
+    Write-Verbose "Uninstalled $name"
   }
 }
 
-
-#---------------------Installing Java jdk 8------------------------------------
-
+#Install
 function InstallJava ($javaVersion,$jdkVersion,$url,$fileName,$jdkPath,$jrePath) {
 
-  Write-Host "Installing $javaVersion..."
+  Write-Verbose "Installing $javaVersion..."
 
   #download
   Write-Verbose "Downloading installer"
@@ -42,8 +41,8 @@ function InstallJava ($javaVersion,$jdkVersion,$url,$fileName,$jdkPath,$jrePath)
   Start-Process cmd.exe -WindowStyle Hidden -ArgumentList $arguments
 
   #installation paths
-  Write-Host "Installing JDK to $jdkPath"
-  Write-Host "Installing JRE to $jrePath"
+  Write-Verbose "Installing JDK to $jdkPath"
+  Write-Verbose "Installing JRE to $jrePath"
 
   #waiting time for complete installation
   Start-Sleep -s 20
@@ -51,7 +50,7 @@ function InstallJava ($javaVersion,$jdkVersion,$url,$fileName,$jdkPath,$jrePath)
   Write-Verbose "$javaVersion installed"
 }
 
-$path = "C:\Users\user\OneDrive\Documents\Tomcat_dependencies\dependencies.properties"
+$path = "C:\Users\user\OneDrive\Documents\java and powershell\dependencies.properties"
 $output = Get-Content $path | ConvertFrom-StringData
 
 #variables
@@ -61,6 +60,7 @@ $fileName = $output.fileName
 $jdk = $output.jdk
 $jre = $output.jre
 $java_logs = $output.java_logs
+$java_update=$output.java_update
 
 $VerbosePreference = "continue"
 
@@ -68,10 +68,10 @@ $VerbosePreference = "continue"
 Start-Transcript -Path $java_logs
 
 #Calling Java uninstall functions
-UninstallJava 'Java SE Development Kit 8 Update 221'
-UninstallJava 'Java SE Development Kit 8 Update 221 (64-bit)'
-UninstallJava 'Java 8 Update 221'
-UninstallJava 'Java 8 Update 221 (64-bit)'
+UninstallJava ("Java SE Development Kit" + " " + ($java_update))
+UninstallJava ("Java SE Development Kit" + " " + ($java_update) +" " + "(64-bit)")
+UninstallJava ("Java" + " " + $java_update)
+UninstallJava ("Java" + " " + $java_update + " " + "(64-bit)")
 
 #Calling Java install functions
 InstallJava $javaVersion $jdkVersion "https://storage.googleapis.com/appveyor-download-cache/jdk/$fileName" $fileName "$env:ProgramFiles\Java\$jdk" "$env:ProgramFiles\Java\$jre"
@@ -79,7 +79,5 @@ InstallJava $javaVersion $jdkVersion "https://storage.googleapis.com/appveyor-do
 # Set Java home
 [Environment]::SetEnvironmentVariable("JAVA_HOME","C:\Progra~1\Java\$jdk","machine")
 $env:JAVA_HOME = "C:\Progra~1\Java\$jdk"
-
-
 
 Stop-Transcript
