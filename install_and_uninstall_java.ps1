@@ -1,4 +1,4 @@
-#Uninstall
+#Uninstall Java
 function GetUninstallString ($productName) {
 
   #PowerShell script to uninstall Java SE (JRE) version on computer
@@ -20,7 +20,7 @@ function UninstallJava ($name) {
   }
 }
 
-#Install
+#Install Java
 function InstallJava ($javaVersion,$jdkVersion,$url,$fileName,$jdkPath,$jrePath) {
 
   Write-Verbose "Installing $javaVersion..."
